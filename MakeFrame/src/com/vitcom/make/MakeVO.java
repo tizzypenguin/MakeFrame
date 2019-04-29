@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.vitcom.frame.MakeGUI;
-import com.vitcom.util.FrameUtil;
+import com.vitcom.util.VOUtil;
 
 public class MakeVO {
 	
@@ -14,7 +14,8 @@ public class MakeVO {
 		this.dbList = dbList;
 	}
 	public String getVO() {
-		FrameUtil util = new FrameUtil();
+//		FrameUtil util = new FrameUtil();
+		VOUtil util = new VOUtil();
 		String className = "";//util.getClassName(MakeGUI.table) + "VO";
 		
 		StringBuilder sb = new  StringBuilder();
