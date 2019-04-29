@@ -3,6 +3,8 @@ package com.vitcom.util;
 import java.util.List;
 import java.util.Map;
 
+import com.vitcom.frame.MakeGUI;
+
 public class FrameUtil {
 	
 	private String capitalize(String str) {
@@ -20,25 +22,37 @@ public class FrameUtil {
 	}
 	
 	public String getClsName(String type, String tbl) {
+		String returnStr = "";
 		switch (type) {
 			case "vo":
+				returnStr += getCamelCase(tbl) + "VO";
 				break;
 			case "form":
+				returnStr += getCamelCase(tbl) + "Form";
 				break;
+			//형식 유지를 위해 테이블도 추가
 			case "table":
-				break;
-			case "manager":
-				break;
-			case "impl":
+				returnStr += tbl;
 				break;
 			case "controller":
+				returnStr += getCamelCase(MakeGUI.pack.split(".")[MakeGUI.pack.split(".").length-1]) + "Controller";
+				break;
+			case "manager":
+				returnStr += getCamelCase(MakeGUI.pack.split(".")[MakeGUI.pack.split(".").length-1]) + "Manager";
+				break;
+			case "impl":
+				returnStr += getCamelCase(MakeGUI.pack.split(".")[MakeGUI.pack.split(".").length-1]) + "ManagerImpl";
+				break;
+			case "dao":
+				returnStr += getCamelCase(MakeGUI.pack.split(".")[MakeGUI.pack.split(".").length-1]) + "Mapper";
 				break;
 			case "xml":
+				returnStr += getCamelCase(MakeGUI.pack.split(".")[MakeGUI.pack.split(".").length-1]) + "Mapper";
 				break;
 			default:
 				break;
 		}
-		return null;
+		return returnStr;
 	}
 	
 	//VOUtil 로 이동 필요

@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 
 import com.vitcom.connector.Connector;
 import com.vitcom.frame.MakeGUI;
-import com.vitcom.template.VOTemplate;
+import com.vitcom.make.MakeVO;
 
 public class Create {
 	private Connection con;

@@ -1,4 +1,4 @@
-package com.vitcom.template;
+package com.vitcom.make;
 
 import java.util.List;
 import java.util.Map;
@@ -6,11 +6,11 @@ import java.util.Map;
 import com.vitcom.frame.MakeGUI;
 import com.vitcom.util.FrameUtil;
 
-public class VOTemplate {
+public class MakeVO {
 	
 	private List<Map<String, String>> dbList;
 	
-	public VOTemplate(List<Map<String, String>> dbList) {
+	public MakeVO(List<Map<String, String>> dbList) {
 		this.dbList = dbList;
 	}
 	public String getVO() {
