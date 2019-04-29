@@ -10,7 +10,6 @@ public class VOUtil {
 		util = new FrameUtil();
 	}
 	
-	
 	//VOUtil 로 이동 필요
 	public String getEmptyConstructor(String className) {
 		String str = "\tpublic "+className+"() {\r\n"
@@ -24,7 +23,9 @@ public class VOUtil {
 		for(int i=0; i<dbList.size(); i++) {
 			bracket = bracket + dbList.get(i).get("DATA_TYPE") + " " + dbList.get(i).get("COLUMN_NAME")+", ";
 		}
-		bracket = bracket.substring(0, bracket.length()-2);
+		if(dbList!=null && dbList.size()>0) {
+			bracket = bracket.substring(0, bracket.length()-2);
+		}
 		bracket+=") {";
 		
 		String variables = "";
