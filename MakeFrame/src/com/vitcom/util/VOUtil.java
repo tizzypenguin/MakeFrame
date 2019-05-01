@@ -10,59 +10,59 @@ public class VOUtil {
 		util = new FrameUtil();
 	}
 	
-	//VOUtil 로 이동 필요
+	public String getVariables(List<Map<String, String>> dbList) {
+		StringBuilder sb = new StringBuilder();
+		for(int i = 0; i< dbList.size(); i++) {
+			sb.append("\tprivate "+ dbList.get(i).get("DATA_CLASS") + " " + dbList.get(i).get("COLUMN_NAME").toLowerCase() +";"); nextLine(sb);
+		}
+		return sb.toString();
+	}
 	public String getEmptyConstructor(String className) {
-		String str = "\tpublic "+className+"() {\r\n"
-				+ "\t}\r\n";
-		return str;
+		StringBuilder sb = new StringBuilder();
+		sb.append("\tpublic "+className+"() {"); nextLine(sb);
+		sb.append("\t}"); nextLine(sb);
+		return sb.toString();
 	}
 	public String getFullConstructor(String className, List<Map<String, String>> dbList) {
-		String str = "\tpublic "+className;
-		
-		String bracket = "(";
+		StringBuilder sb = new StringBuilder();
+		sb.append("\tpublic "+className+"(");
 		for(int i=0; i<dbList.size(); i++) {
-			bracket = bracket + dbList.get(i).get("DATA_TYPE") + " " + dbList.get(i).get("COLUMN_NAME")+", ";
+			sb.append(dbList.get(i).get("DATA_CLASS") + " " + dbList.get(i).get("COLUMN_NAME").toLowerCase()+", ");
 		}
-		if(dbList!=null && dbList.size()>0) {
-			bracket = bracket.substring(0, bracket.length()-2);
-		}
-		bracket+=") {";
-		
-		String variables = "";
+		sb.append(") {"); nextLine(sb);
 		for(int i=0; i<dbList.size(); i++) {
-			variables+="\r\n\t\tthis."+dbList.get(i).get("COLUMN_NAME")+" = "+dbList.get(i).get("DATA_TYPE")+";";
+			sb.append("\t\tthis."+dbList.get(i).get("COLUMN_NAME").toLowerCase()+" = "+dbList.get(i).get("DATA_CLASS")+";"); nextLine(sb);
 		}
+		nextLine(sb);
+		sb.append("\t}"); nextLine(sb);
 		
-		str+=bracket;
-		str+=variables;
-		str+="\r\n\t}\r\n";
-		
-		return str;
+		return sb.toString();
 	}
 	public String getGetterSetter(List<Map<String, String>> dbList) {
-		String str = "";
+		StringBuilder sb = new StringBuilder();
 		for(int i=0; i<dbList.size();i++) {
-			String type = dbList.get(i).get("DATA_TYPE");
-			String variable = dbList.get(i).get("COLUMN_NAME");
-			String getter = 
-					"\tpublic "+type+" get"+util.capitalize(variable)+"() {\r\n"
-					+ "\t\treturn "+variable+";\r\n"
-					+ "\t}\r\n";
-			String setter = 
-					"\tpublic void set"+util.capitalize(variable)+"("+type+" "+variable+") {\r\n"
-					+ "\t\tthis."+variable+" = "+variable+";\r\n"
-					+ "\t}\r\n";
-			str += getter;
-			str += setter;
+			String type = dbList.get(i).get("DATA_CLASS");
+			String variable = dbList.get(i).get("COLUMN_NAME").toLowerCase();
+			
+			//getter
+			sb.append("\tpublic "+type+" get"+util.capitalize(variable)+"() {"); nextLine(sb);
+			sb.append("\t\treturn "+variable+";"); nextLine(sb);
+			sb.append("\t}"); nextLine(sb);
+			//setter
+			sb.append("\tpublic void set"+util.capitalize(variable)+"("+type+" "+variable+") {"); nextLine(sb);
+			sb.append("\t\tthis."+variable+" = "+variable+";"); nextLine(sb);
+			sb.append("\t}"); nextLine(sb);
 		}
-		return str;
+		return sb.toString();
 	}
 	public String getToString() {
-		String str = 
-				"\tpublic String toString() {\r\n"
-				+ "\t\treturn ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);\r\n"
-				+ "\t}\r\n";
-		return str;
+		StringBuilder sb = new StringBuilder();
+		sb.append("\tpublic String toString() {"); nextLine(sb);
+		sb.append("\t\treturn ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);"); nextLine(sb);
+		sb.append("\t}"); nextLine(sb);
+		return sb.toString();
 	}
-	////VOUtil 로 이동 필요
+	private void nextLine(StringBuilder sb) {
+		sb.append("\r\n");
+	}
 }

@@ -26,7 +26,8 @@ public class MakeGUI {
 	
 	public static Connection con;
 	public static String path;
-	public static String table;
+	public static String[] table;
+	public static String uri;
 	public static String pack;
 	
 //	public static void main(String[] args) {
@@ -38,15 +39,6 @@ public class MakeGUI {
 		Dimension dim = new Dimension(600,190);
 		frame.setPreferredSize(dim);
 
-		//테이블명 입력창
-		JLabel tblLabel = new JLabel("테이블명:      ");
-		JTextField tblTxt= new JTextField();
-		JPanel tblPanel = new JPanel();
-		
-		tblPanel.setLayout(new BoxLayout(tblPanel, BoxLayout.X_AXIS));
-		tblPanel.add(tblLabel);
-		tblPanel.add(tblTxt);
-		
 		//Out 경로 선택창
 		JLabel pathLabel = new JLabel("선택된 경로: ");
 		JTextField pathTxt = new JTextField();
@@ -70,6 +62,32 @@ public class MakeGUI {
 		pathPanel.add(pathLabel);
 		pathPanel.add(pathTxt);
 		pathPanel.add(pathBtn);
+
+		//테이블명 입력창
+		JLabel tblLabel = new JLabel("테이블명:      ");
+		JTextField tblTxt= new JTextField("USER,BOARD,... 등 띄어쓰기 없이 콤마로 적어주세요");
+		tblTxt.setForeground(Color.GRAY);
+		tblTxt.addFocusListener(new FocusListener() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if(tblTxt.getText().equals("USER,BOARD,... 등 띄어쓰기 없이 콤마로 적어주세요")) {
+					tblTxt.setText("");
+					tblTxt.setForeground(Color.BLACK);
+				}
+			}
+			@Override
+			public void focusLost(FocusEvent e) {
+				if(tblTxt.getText().isEmpty()) {
+					tblTxt.setForeground(Color.GRAY);
+					tblTxt.setText("USER,BOARD,... 등 띄어쓰기 없이 콤마로 적어주세요");
+				}
+			}
+		});
+		JPanel tblPanel = new JPanel();
+		
+		tblPanel.setLayout(new BoxLayout(tblPanel, BoxLayout.X_AXIS));
+		tblPanel.add(tblLabel);
+		tblPanel.add(tblTxt);
 		
 		//DB정보 입력창
 		JLabel dbLabel = new JLabel("DB URL:         ");
@@ -105,6 +123,7 @@ public class MakeGUI {
 						dbBtn.setText("접속 실패");
 					} else {
 						dbBtn.setText("접속 성공");
+						dbTxt.setEnabled(false);
 					}
 				} catch (SQLException e1) {
 					dbBtn.setText("접속 실패");
@@ -162,19 +181,21 @@ public class MakeGUI {
 		outerPanel.add(dbPanel);
 		outerPanel.add(packPanel);
 		
-		JButton createBtn = new JButton();
+		JButton createBtn = new JButton("생성");
 		createBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				path = pathTxt.getText();
-				table = tblTxt.getText();
+				table = tblTxt.getText().split(",");
+				uri = dbTxt.getText();
 				pack = packTxt.getText();
 				new Create();
 			}
 		});
 		
 		frame.add(outerPanel,BorderLayout.CENTER);
-		frame.add(new JButton("생성"), BorderLayout.SOUTH);
+//		frame.add(new JButton("생성"), BorderLayout.SOUTH);
+		frame.add(createBtn, BorderLayout.SOUTH);
 		frame.pack();
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

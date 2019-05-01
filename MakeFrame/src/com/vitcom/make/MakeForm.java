@@ -7,19 +7,21 @@ import com.vitcom.frame.MakeGUI;
 import com.vitcom.util.FrameUtil;
 import com.vitcom.util.VOUtil;
 
-public class MakeVO {
+public class MakeForm {
 
 	private String tblName;
-	private List<Map<String, String>> dbList;
+	private List<Map<String, String>> pkList;
+	FrameUtil frameUtil;
 	
-	public MakeVO(String tblName,List<Map<String, String>> dbList) {
+	public MakeForm(String tblName,List<Map<String, String>> dbList) {
 		this.tblName = tblName;
-		this.dbList = dbList;
+		
+		frameUtil = new FrameUtil();
+		this.pkList = frameUtil.getPkList(dbList);
 	}
-	public String getVO() {
-		FrameUtil frameUtil = new FrameUtil();
+	public String getForm() {
 		VOUtil voUtil = new VOUtil();
-		String className = frameUtil.getClsName("vo", tblName);
+		String className = frameUtil.getClsName("form", tblName);
 		
 		StringBuilder sb = new  StringBuilder();
 		
@@ -32,12 +34,12 @@ public class MakeVO {
 		nextLine(sb);
 		sb.append("public class " + className + " {"); nextLine(sb);
 		nextLine(sb);
-		sb.append(voUtil.getVariables(dbList));
+		sb.append(voUtil.getVariables(pkList));
 		nextLine(sb);
 		sb.append(voUtil.getEmptyConstructor(className));
-		sb.append(voUtil.getFullConstructor(className, dbList));
+		sb.append(voUtil.getFullConstructor(className, pkList));
 		nextLine(sb);
-		sb.append(voUtil.getGetterSetter(dbList));
+		sb.append(voUtil.getGetterSetter(pkList));
 		nextLine(sb);
 		sb.append(voUtil.getToString());
 		sb.append("}");
