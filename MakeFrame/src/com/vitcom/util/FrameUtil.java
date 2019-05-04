@@ -21,6 +21,15 @@ public class FrameUtil {
 		}
 		return returnStr;
 	}
+//	public String getCamelCaseVar(String name) {
+//		String returnStr = getCamelCase(name);
+//		returnStr = returnStr.toLowerCase().charAt(0)+returnStr.substring(1,returnStr.length());
+//		return returnStr;
+//	}
+	
+	public String getClsName(String type) {
+		return getClsName(type, null);
+	}
 	
 	public String getClsName(String type, String tbl) {
 		String returnStr = "";
@@ -36,16 +45,16 @@ public class FrameUtil {
 				returnStr = tbl;
 				break;
 			case "controller":
-				returnStr = getCamelCase(MakeGUI.pack.split(".")[MakeGUI.pack.split(".").length-1]) + "Controller";
+				returnStr = getCamelCase(MakeGUI.pack.split("\\.")[MakeGUI.pack.split("\\.").length-1]) + "Controller";
 				break;
 			case "manager":
-				returnStr = getCamelCase(MakeGUI.pack.split(".")[MakeGUI.pack.split(".").length-1]) + "Manager";
+				returnStr = getCamelCase(MakeGUI.pack.split("\\.")[MakeGUI.pack.split("\\.").length-1]) + "Manager";
 				break;
 			case "impl":
-				returnStr = getCamelCase(MakeGUI.pack.split(".")[MakeGUI.pack.split(".").length-1]) + "ManagerImpl";
+				returnStr = getCamelCase(MakeGUI.pack.split("\\.")[MakeGUI.pack.split("\\.").length-1]) + "ManagerImpl";
 				break;
-			case "dao":
-				returnStr = getCamelCase(MakeGUI.pack.split(".")[MakeGUI.pack.split(".").length-1]) + "Mapper";
+			case "mapper":
+				returnStr = getCamelCase(MakeGUI.pack.split("\\.")[MakeGUI.pack.split("\\.").length-1]) + "Mapper";
 				break;
 			case "xml":
 				returnStr = getCamelCase(MakeGUI.pack.split("\\.")[MakeGUI.pack.split("\\.").length-1]) + "Mapper";
@@ -53,6 +62,45 @@ public class FrameUtil {
 			default:
 				break;
 		}
+		return returnStr;
+	}
+	public String getFileName(String type, String tbl) {
+		String returnStr = "";
+		String [] packArr = MakeGUI.pack.split("\\."); 
+		String prefix = packArr[0]+"/"+packArr[1]+"/"+packArr[2]+"/";
+		switch (type) {
+			case "vo":
+				returnStr = prefix+"model/"+getCamelCase(tbl) + "VO.java";
+				break;
+			case "form":
+				returnStr = prefix+"model/"+getCamelCase(tbl) + "Form.java";
+				break;
+			case "controller":
+				returnStr = prefix+getCamelCase(MakeGUI.pack.split("\\.")[MakeGUI.pack.split("\\.").length-1]) + "Controller.java";
+				break;
+			case "manager":
+				returnStr = prefix+"service/"+getCamelCase(MakeGUI.pack.split("\\.")[MakeGUI.pack.split("\\.").length-1]) + "Manager.java";
+				break;
+			case "impl":
+				returnStr = prefix+"service/impl/"+getCamelCase(MakeGUI.pack.split("\\.")[MakeGUI.pack.split("\\.").length-1]) + "ManagerImpl.java";
+				break;
+			case "mapper":
+				returnStr = prefix+"dao/"+getCamelCase(MakeGUI.pack.split("\\.")[MakeGUI.pack.split("\\.").length-1]) + "Mapper.java";
+				break;
+			case "xml":
+				returnStr = prefix+"dao/"+getCamelCase(MakeGUI.pack.split("\\.")[MakeGUI.pack.split("\\.").length-1]) + "Mapper.xml";
+				break;
+			default:
+				break;
+		}
+		return returnStr;
+	}
+	public String getClsNameVar(String type) {
+		return getClsNameVar(type, null);
+	}
+	public String getClsNameVar(String type, String tbl) {
+		String returnStr = getClsName(type, tbl);
+		returnStr = returnStr.toLowerCase().charAt(0)+returnStr.substring(1,returnStr.length());
 		return returnStr;
 	}
 	

@@ -18,7 +18,7 @@ public class XmlUtil {
 		sb.append("<!DOCTYPE mapper PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\" "); nextLine(sb);
 		sb.append("\"http://mybatis.org/dtd/mybatis-3-mapper.dtd\">"); nextLine(sb);
 		nextLine(sb);
-		sb.append("<mapper namespace=\"com.koscom.memo.dao."+frameUtil.getClsName("xml", null)+"\">"); nextLine(sb);
+		sb.append("<mapper namespace=\""+MakeGUI.pack+".dao."+frameUtil.getClsName("xml")+"\">"); nextLine(sb);
 		return sb.toString();
 	}
 	public String getInsert(String tblName, List<Map<String, String>> dbList) {

@@ -17,9 +17,6 @@ public class MakeXml {
 		XmlUtil xmlUtil = new XmlUtil();
 		StringBuilder sb = new StringBuilder();
 		sb.append(xmlUtil.getHeader());
-//		sb.append(xmlUtil.getInsert("FW_USER", tblMap.get("FW_USER")));
-//		sb.append(xmlUtil.getSelect("FW_USER", tblMap.get("FW_USER")));
-//		sb.append(xmlUtil.getSelectOne("FW_USER", tblMap.get("FW_USER")));
 		Iterator<String> iter = tblMap.keySet().iterator();
 		
 		while(iter.hasNext()) {

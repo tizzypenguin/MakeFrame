@@ -29,11 +29,11 @@ public class VOUtil {
 		for(int i=0; i<dbList.size(); i++) {
 			sb.append(dbList.get(i).get("DATA_CLASS") + " " + dbList.get(i).get("COLUMN_NAME").toLowerCase()+", ");
 		}
+		sb.delete(sb.length()-2, sb.length());
 		sb.append(") {"); nextLine(sb);
 		for(int i=0; i<dbList.size(); i++) {
-			sb.append("\t\tthis."+dbList.get(i).get("COLUMN_NAME").toLowerCase()+" = "+dbList.get(i).get("DATA_CLASS")+";"); nextLine(sb);
+			sb.append("\t\tthis."+dbList.get(i).get("COLUMN_NAME").toLowerCase()+" = "+dbList.get(i).get("COLUMN_NAME").toLowerCase()+";"); nextLine(sb);
 		}
-		nextLine(sb);
 		sb.append("\t}"); nextLine(sb);
 		
 		return sb.toString();

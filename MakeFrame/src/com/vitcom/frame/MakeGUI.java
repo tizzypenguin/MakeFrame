@@ -193,8 +193,14 @@ public class MakeGUI {
 			}
 		});
 		
+		//test
+//		pathTxt.setText("C:\\Users\\Home\\Desktop\\test");
+//		tblTxt.setText("FW_USER");
+//		dbTxt.setText("jdbc:oracle:thin:@127.0.0.1:1521:xe/WIZFRAME/WIZFRAME");
+//		packTxt.setText("com.vitcom.user");
+		////test
+		
 		frame.add(outerPanel,BorderLayout.CENTER);
-//		frame.add(new JButton("생성"), BorderLayout.SOUTH);
 		frame.add(createBtn, BorderLayout.SOUTH);
 		frame.pack();
 		frame.setVisible(true);

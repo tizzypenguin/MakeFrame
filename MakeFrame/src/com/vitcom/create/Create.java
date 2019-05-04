@@ -11,8 +11,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.vitcom.connector.Connector;
+import com.vitcom.file.MakeFile;
 import com.vitcom.frame.MakeGUI;
+import com.vitcom.make.MakeController;
 import com.vitcom.make.MakeForm;
+import com.vitcom.make.MakeImpl;
+import com.vitcom.make.MakeManager;
+import com.vitcom.make.MakeMapper;
 import com.vitcom.make.MakeVO;
 import com.vitcom.make.MakeXml;
 
@@ -105,13 +110,26 @@ public class Create {
 		}
 		//
 		Iterator<String> iter = tblMap.keySet().iterator();
+		MakeFile makeFile = new MakeFile();
+		
 		while(iter.hasNext()) {
 			String tbl = iter.next();
-//			List<Map<String, String>> dbList2 = tblMap.get(tbl);
-//			MakeVO makeVO = new MakeVO(tbl, dbList2);
-//			MakeForm makeForm = new MakeForm(tbl, dbList2);
+			List<Map<String, String>> dbList2 = tblMap.get(tbl);
+			MakeVO makeVO = new MakeVO(tbl, dbList2);
+			makeFile.makeFile(makeVO.getVO(), "vo", tbl);
+			MakeForm makeForm = new MakeForm(tbl, dbList2);
+			makeFile.makeFile(makeForm.getForm(), "form", tbl);
+			
 		}
 		MakeXml makeXml = new MakeXml(tblMap);
-		System.out.println(makeXml.getXml());
+		makeFile.makeFile(makeXml.getXml(), "xml");
+		MakeMapper makeMapper = new MakeMapper(tblMap);
+		makeFile.makeFile(makeMapper.getMapper(), "mapper");
+		MakeManager makeManager = new MakeManager(tblMap);
+		makeFile.makeFile(makeManager.getManager(), "manager");
+		MakeImpl makeImpl = new MakeImpl(tblMap);
+		makeFile.makeFile(makeImpl.getImpl(), "impl");
+		MakeController makeController = new MakeController(tblMap);
+		makeFile.makeFile(makeController.getController(), "controller");
 	}
 }
