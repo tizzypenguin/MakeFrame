@@ -1,3 +1,9 @@
+/**
+ * Manager내용을 만드는 클래스
+ * @author		Tizzypenguin
+ * @since		2019.05.05
+ * @version		1.0
+ */
 package com.vitcom.make;
 
 import java.util.Iterator;
@@ -14,8 +20,11 @@ public class MakeManager {
 		this.tblMap = tblMap;
 	}
 	
+	/**
+	 * Impl내용을 반환하는 함수
+	 * @return
+	 */
 	public String getManager() {
-//		MapperUtil mapperUtil = new MapperUtil();
 		ManagerUtil managerUtil = new ManagerUtil();
 		StringBuilder sb = new StringBuilder();
 		sb.append(managerUtil.getHeader(tblMap));

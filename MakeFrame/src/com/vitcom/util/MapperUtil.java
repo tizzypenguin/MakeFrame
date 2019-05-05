@@ -1,3 +1,9 @@
+/**
+ * Mapper 상세내용을 테이블 데이터에서부터 만드는 클래스 
+ * @author		Tizzypenguin
+ * @since		2019.05.05
+ * @version		1.0
+ */
 package com.vitcom.util;
 
 import java.util.Iterator;

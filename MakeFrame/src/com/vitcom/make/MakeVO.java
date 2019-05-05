@@ -1,3 +1,9 @@
+/**
+ * VO내용을 만드는 클래스
+ * @author		Tizzypenguin
+ * @since		2019.05.05
+ * @version		1.0
+ */
 package com.vitcom.make;
 
 import java.util.List;
@@ -16,6 +22,11 @@ public class MakeVO {
 		this.tblName = tblName;
 		this.dbList = dbList;
 	}
+	
+	/**
+	 * VO내용을 반환하는 함수
+	 * @return
+	 */
 	public String getVO() {
 		FrameUtil frameUtil = new FrameUtil();
 		VOUtil voUtil = new VOUtil();

@@ -1,3 +1,9 @@
+/**
+ * 공통으로 쓰이는 클래스  
+ * @author		Tizzypenguin
+ * @since		2019.05.05
+ * @version		1.0
+ */
 package com.vitcom.util;
 
 import java.util.ArrayList;
@@ -21,12 +27,6 @@ public class FrameUtil {
 		}
 		return returnStr;
 	}
-//	public String getCamelCaseVar(String name) {
-//		String returnStr = getCamelCase(name);
-//		returnStr = returnStr.toLowerCase().charAt(0)+returnStr.substring(1,returnStr.length());
-//		return returnStr;
-//	}
-	
 	public String getClsName(String type) {
 		return getClsName(type, null);
 	}

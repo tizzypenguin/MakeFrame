@@ -1,3 +1,9 @@
+/**
+ * Form내용을 만드는 클래스
+ * @author		Tizzypenguin
+ * @since		2019.05.05
+ * @version		1.0
+ */
 package com.vitcom.make;
 
 import java.util.List;
@@ -12,13 +18,19 @@ public class MakeForm {
 	private String tblName;
 	private List<Map<String, String>> pkList;
 	FrameUtil frameUtil;
-	
+
 	public MakeForm(String tblName,List<Map<String, String>> dbList) {
 		this.tblName = tblName;
 		
+		//pkList를 가져오기 위해 미리 frameUtil 선언
 		frameUtil = new FrameUtil();
 		this.pkList = frameUtil.getPkList(dbList);
 	}
+	
+	/**
+	 * Form내용을 반환하는 함수
+	 * @return
+	 */
 	public String getForm() {
 		VOUtil voUtil = new VOUtil();
 		String className = frameUtil.getClsName("form", tblName);
@@ -37,9 +49,11 @@ public class MakeForm {
 		sb.append(voUtil.getVariables(pkList));
 		nextLine(sb);
 		sb.append(voUtil.getEmptyConstructor(className));
-		sb.append(voUtil.getFullConstructor(className, pkList));
-		nextLine(sb);
-		sb.append(voUtil.getGetterSetter(pkList));
+		if(MakeGUI.pkMap.get(tblName)) {
+			sb.append(voUtil.getFullConstructor(className, pkList));
+			nextLine(sb);
+			sb.append(voUtil.getGetterSetter(pkList));
+		}
 		nextLine(sb);
 		sb.append(voUtil.getToString());
 		sb.append("}");

@@ -1,3 +1,9 @@
+/**
+ * Mapper.xml내용을 만드는 클래스
+ * @author		Tizzypenguin
+ * @since		2019.05.05
+ * @version		1.0
+ */
 package com.vitcom.make;
 
 import java.util.Iterator;
@@ -13,6 +19,11 @@ public class MakeXml {
 	public MakeXml(Map<String, List<Map<String, String>>> tblMap) {
 		this.tblMap = tblMap; 
 	}
+	
+	/**
+	 * Mapper.xml내용을 반환하는 함수
+	 * @return
+	 */
 	public String getXml() {
 		XmlUtil xmlUtil = new XmlUtil();
 		StringBuilder sb = new StringBuilder();

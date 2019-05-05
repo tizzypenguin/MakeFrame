@@ -1,3 +1,9 @@
+/**
+ * GUI를 구성하는 클래스
+ * @author		Tizzypenguin
+ * @since		2019.05.05
+ * @version		1.0
+ */
 package com.vitcom.frame;
 
 import java.awt.BorderLayout;
@@ -10,6 +16,8 @@ import java.awt.event.FocusListener;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -29,13 +37,12 @@ public class MakeGUI {
 	public static String[] table;
 	public static String uri;
 	public static String pack;
+	public static Map<String, Boolean> pkMap;;
 	
-//	public static void main(String[] args) {
 	public MakeGUI() {
 		//frame 설정
-		JFrame frame = new JFrame("test");
+		JFrame frame = new JFrame("프레임 설정");
 		frame.setLocation(600, 400);
-		
 		Dimension dim = new Dimension(600,190);
 		frame.setPreferredSize(dim);
 
@@ -43,6 +50,7 @@ public class MakeGUI {
 		JLabel pathLabel = new JLabel("선택된 경로: ");
 		JTextField pathTxt = new JTextField();
 		pathTxt.setEnabled(false);
+		pathTxt.setText("{workspace}/{project}/src");
 		JButton pathBtn = new JButton("폴더 선택");
 		pathBtn.addActionListener(new ActionListener() {
 			@Override
@@ -189,17 +197,12 @@ public class MakeGUI {
 				table = tblTxt.getText().split(",");
 				uri = dbTxt.getText();
 				pack = packTxt.getText();
+				pkMap = new HashMap<>();
 				new Create();
 			}
 		});
-		
-		//test
-//		pathTxt.setText("C:\\Users\\Home\\Desktop\\test");
-//		tblTxt.setText("FW_USER");
-//		dbTxt.setText("jdbc:oracle:thin:@127.0.0.1:1521:xe/WIZFRAME/WIZFRAME");
-//		packTxt.setText("com.vitcom.user");
-		////test
-		
+
+		//프레임에 추가
 		frame.add(outerPanel,BorderLayout.CENTER);
 		frame.add(createBtn, BorderLayout.SOUTH);
 		frame.pack();

@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>MakeVO</groupId>
-	<artifactId>MakeVO</artifactId>
+	<groupId>MakeFrame</groupId>
+	<artifactId>MakeFrame</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
@@ -43,7 +43,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>com.vitcom.gui.CreateFrame</mainClass>
+							<mainClass>com.vitcom.main.Main</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
@@ -53,14 +53,18 @@
 				<artifactId>maven-assembly-plugin</artifactId>
 				<version>3.1.0</version>
 				<configuration>
-					<descriptors>
-						<descriptor>src/assembly/make-assembly.xml</descriptor>
-					</descriptors>
+<!-- 					<descriptors> -->
+<!-- 						<descriptor>src/assembly/make-assembly.xml</descriptor> -->
+<!-- 					</descriptors> -->
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+						<descriptorRef>src</descriptorRef>
+					</descriptorRefs>
 					<archive>
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>com.vitcom.gui.CreateFrame</mainClass>
+							<mainClass>com.vitcom.main.Main</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
@@ -136,9 +140,9 @@
 		<dependency>
 			<groupId>com.oracle</groupId>
 			<artifactId>ojdbc6</artifactId>
-			<version>11.2.0.3</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/src/lib/ojdbc6-11.2.0.3.jar</systemPath>
+			<version>11.2.0</version>
+<!-- 			<scope>system</scope> -->
+<!-- 			<systemPath>${basedir}/src/lib/ojdbc6-11.2.0.3.jar</systemPath> -->
 		</dependency>
 	</dependencies>
 </project>

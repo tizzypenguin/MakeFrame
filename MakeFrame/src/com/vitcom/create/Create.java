@@ -1,3 +1,9 @@
+/**
+ * 테이블 조회 및 각 자바 파일 생성
+ * @author		Tizzypenguin
+ * @since		2019.05.05
+ * @version		1.0
+ */
 package com.vitcom.create;
 
 import java.sql.Connection;
@@ -77,7 +83,7 @@ public class Create {
 		
 		Connector connector = new Connector(MakeGUI.uri.split("/")[0]);
 		
-		//테이블 정보 조회 - tblMap에 저장
+		//각 테이블별 정보 조회 - tblMap에 저장
 		for(String tbl: tblArr) {
 			dbList = new ArrayList<>();
 			try {
@@ -108,16 +114,29 @@ public class Create {
 				e.printStackTrace();
 			}
 		}
-		//
 		Iterator<String> iter = tblMap.keySet().iterator();
-		MakeFile makeFile = new MakeFile();
-		
+		//pkMap 확인
 		while(iter.hasNext()) {
 			String tbl = iter.next();
+			boolean isPk = false;
 			List<Map<String, String>> dbList2 = tblMap.get(tbl);
-			MakeVO makeVO = new MakeVO(tbl, dbList2);
+			for(Map<String, String> map: dbList2) {
+				if("Y".equals(map.get("YN_PK"))) {
+					isPk = true;
+				}
+			}
+			MakeGUI.pkMap.put(tbl, isPk);
+		}
+		
+		MakeFile makeFile = new MakeFile();
+		
+		iter = tblMap.keySet().iterator();
+		while(iter.hasNext()) {
+			String tbl = iter.next();
+			List<Map<String, String>> dbList3 = tblMap.get(tbl);
+			MakeVO makeVO = new MakeVO(tbl, dbList3);
 			makeFile.makeFile(makeVO.getVO(), "vo", tbl);
-			MakeForm makeForm = new MakeForm(tbl, dbList2);
+			MakeForm makeForm = new MakeForm(tbl, dbList3);
 			makeFile.makeFile(makeForm.getForm(), "form", tbl);
 			
 		}

@@ -1,3 +1,9 @@
+/**
+ * Mapper내용을 만드는 클래스
+ * @author		Tizzypenguin
+ * @since		2019.05.05
+ * @version		1.0
+ */
 package com.vitcom.make;
 
 import java.util.Iterator;
@@ -15,6 +21,10 @@ public class MakeMapper {
 		this.tblMap = tblMap;
 	}
 	
+	/**
+	 * Mapper의 내용을 반환하는 함수
+	 * @return
+	 */
 	public String getMapper() {
 		MapperUtil mapperUtil = new MapperUtil();
 		StringBuilder sb = new StringBuilder();
