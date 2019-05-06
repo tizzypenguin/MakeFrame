@@ -16,6 +16,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
+
 import com.vitcom.connector.Connector;
 import com.vitcom.file.MakeFile;
 import com.vitcom.frame.MakeGUI;
@@ -150,5 +152,7 @@ public class Create {
 		makeFile.makeFile(makeImpl.getImpl(), "impl");
 		MakeController makeController = new MakeController(tblMap);
 		makeFile.makeFile(makeController.getController(), "controller");
+		
+		JOptionPane.showMessageDialog(null, MakeGUI.path+"에 파일이 성공적으로 생성되었습니다.");
 	}
 }

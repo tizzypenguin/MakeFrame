@@ -24,6 +24,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -47,7 +48,7 @@ public class MakeGUI {
 		frame.setPreferredSize(dim);
 
 		//Out 경로 선택창
-		JLabel pathLabel = new JLabel("선택된 경로: ");
+		JLabel pathLabel = new JLabel("경로 선택:     ");
 		JTextField pathTxt = new JTextField();
 		pathTxt.setEnabled(false);
 		pathTxt.setText("{workspace}/{project}/src");
@@ -125,6 +126,10 @@ public class MakeGUI {
 				String uri = uriArr[0];
 				String id = uriArr[1];
 				String pw = uriArr[2];
+				if("예) jdbc:oracle:thin:@127.0.0.1:1521:xe/id/pw".equals(dbTxt.getText())) {
+					JOptionPane.showMessageDialog(null, "올바른 DB접속 정보를 입력 후 테스트 해 주세요.");
+					return;
+				}
 				try {
 					con = new Connector(uri).getConnection(id, pw);
 					if(con == null) {
@@ -194,11 +199,22 @@ public class MakeGUI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				path = pathTxt.getText();
-				table = tblTxt.getText().split(",");
+				table = tblTxt.getText().replaceAll(" ", "").split(",");
 				uri = dbTxt.getText();
 				pack = packTxt.getText();
 				pkMap = new HashMap<>();
-				new Create();
+				
+				if("{workspace}/{project}/src".equals(MakeGUI.path)) {
+					JOptionPane.showMessageDialog(null, "출력 경로를 선택해주세요.");
+				} else if ("USER,BOARD,... 등 띄어쓰기 없이 콤마로 적어주세요".equals(tblTxt.getText())) {
+					JOptionPane.showMessageDialog(null, "테이블 명을 입력해주세요.");
+				} else if ("테스트".equals(dbBtn.getText())||"접속 실패".equals(dbBtn.getText())){
+					JOptionPane.showMessageDialog(null, "올바른 DB접속 정보를 입력 후 테스트 해 주세요.");
+				} else if (!packTxt.getText().matches("[a-z]+[.][a-z]+[.][a-z]+")) {
+					JOptionPane.showMessageDialog(null, "패키지 명은 com.vitcom.user 와 같은 형식입니다.");
+				} else {
+					new Create();
+				}
 			}
 		});
 
@@ -209,6 +225,5 @@ public class MakeGUI {
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-//	}
 }
 
